@@ -1,0 +1,13 @@
+[Unit]
+Description=PlexAuto 
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/plexAuto
+ExecStart=/opt/plexAuto/plexauto
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
