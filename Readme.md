@@ -2,7 +2,7 @@
 Automatic updates for Plex server on Linux systems.
 
 #### Description
-This applicaiton will check for Plex server updates on an interval provided by the user in the configuration file. When there is an update available the application will check if there is any media playing, then download the update and install. If the install is sucessfull then it will send a push notification informing the user of the update via PushBullet if configured to do so.
+This applicaiton will check for Plex server updates on an interval provided by the user in the configuration file. When there is an update available the application will check if there is any media playing, then download the update and install. If the install is sucessfull then it will send a push notification informing the user of the update via PushBullet if configured to do so. The push notification feature requires an IFTTT account with a webhook event enabled.
 
 #### Package Requirements
 * libcurl

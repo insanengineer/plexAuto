@@ -110,7 +110,9 @@ bool Settings::ReadSettings()
               settings.serverPort = ParseLine(line);
             if (line.find("PUSH_NOTIFICATIONS") != std::string::npos)
               settings.pushNotifications = (ParseLine(line) == "1") ? true : false;
-            if (line.find("PUSHBULLET_API_TOKEN") != std::string::npos)
+            if (line.find("IFTTT_EVENT_NAME") != std::string::npos)
+              settings.pushApiEventName = ParseLine(line);
+            if (line.find("IFTTT_API_TOKEN") != std::string::npos)
               settings.pushApiToken = ParseLine(line);
         }
 
@@ -155,8 +157,11 @@ void Settings::WriteSettings()
         file << "# valid values are 0 and 1" << "\n";
         file << "PUSH_NOTIFICATIONS=1" << "\n\n";
 
-        file << "# Enter your pushbullet api key here if push notifications are enabled" << "\n";
-        file << "PUSHBULLET_API_TOKEN=12345" << "\n";
+         file << "# Enter your IFTTT webhooks event name here if push notifications are enabled" << "\n";
+        file << "IFTTT_EVENT_NAME=Notify" << "\n\n";
+
+        file << "# Enter your IFTTT webhooks api key here if push notifications are enabled" << "\n";
+        file << "IFTTT_API_TOKEN=12345" << "\n";
 
         file.close();
     }

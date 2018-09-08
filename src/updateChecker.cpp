@@ -146,18 +146,17 @@ void UpdateChecker::SendMsg()
     Sender snd;
     Json::Value root;
 
-    root["type"] = "note";
-    root["title"] = "Plex Server has been Updated";
-    root["body"] = "Your Plex server has been updated from " + currentVer + " to " + updateVer;
+    std::string pushUrl = "https://maker.ifttt.com/trigger/" + currentSettings.pushApiEventName + "/with/key/" + currentSettings.pushApiToken;
+    
+    root["value1"] = "PlexAuto\n";
+    root["value2"] = "Your Plex server has been updated from " + currentVer + " to " + updateVer + "\n";
 
     Json::StyledWriter writer;
     std::string jsonReq = writer.write(root);
 
-    std::string acessToken = "Access-Token:" + currentSettings.pushApiToken;
-    snd.setCustomHeader(acessToken);
     std::string contentType = "Content-Type: application/json";
     snd.setCustomHeader(contentType);
-    snd.send("https://api.pushbullet.com/v2/pushes", jsonReq);
+    snd.send(pushUrl, jsonReq); 
 }
 
 void UpdateChecker::StartDownload()

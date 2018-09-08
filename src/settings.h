@@ -39,6 +39,7 @@ struct SETTINGS
     std::string downloadLocation;
     std::string serverPort;
     bool pushNotifications;
+    std::string pushApiEventName;
     std::string pushApiToken;
 };
 
