@@ -180,6 +180,6 @@ void UpdateChecker::ApplyUpdate()
 
     int complete = std::system(cmd.c_str());
 
-    if (complete && currentSettings.pushNotifications)
+    if ((complete > -1) && currentSettings.pushNotifications)
        SendMsg();
 }
