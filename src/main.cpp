@@ -28,10 +28,9 @@ SOFTWARE.
 
 int main()
 {
-    Settings settings;
     UpdateChecker check;
 
-    SETTINGS settngs = settings.Instance().GetSettings();
+    SETTINGS settngs = Settings::Instance().GetSettings();
 
     unsigned int seconds = settngs.checkUpdateTime * 60 * 60;
 

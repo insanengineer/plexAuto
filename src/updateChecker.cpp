@@ -23,6 +23,7 @@ SOFTWARE.
 *********************************************************************************/
 #include <iostream>
 #include <unistd.h>
+#include <algorithm>
 #include <jsoncpp/json/json.h>
 #include "utilities.h"
 #include "downloader.h"
@@ -31,7 +32,7 @@ SOFTWARE.
 
 UpdateChecker::UpdateChecker()
 {
-    CheckForUpdate();
+    
 }
 
 void UpdateChecker::CheckForUpdate()
@@ -44,11 +45,11 @@ void UpdateChecker::CheckForUpdate()
     {
         std::string authHeader = "X-Plex-Token:" + currentSettings.authToken;
         dl.setCustomHeader(authHeader);
-        url = "https://plex.tv/api/downloads/1.json?channel=plexpass";
+        url = "https://plex.tv/api/downloads/5.json?channel=plexpass";
     }
     else
     { 
-        url = "https://plex.tv/api/downloads/1.json";
+        url = "https://plex.tv/api/downloads/5.json";
     }
     
     std::string result = dl.download(url);
@@ -74,11 +75,15 @@ void UpdateChecker::CheckForUpdate()
     {
         for( Json::Value::ArrayIndex i = 0; i < releasesArray.size() ; i++)
         {
+            std::string label = releasesArray[i]["label"].asString();
+            std::transform(label.begin(), label.end(), label.begin(), ::tolower);
             std::string distro = releasesArray[i]["distro"].asString();
             std::string build = releasesArray[i]["build"].asString();
 
-            if (distro == currentSettings.osType &&
-                build.find(currentSettings.osArch) != std::string::npos)
+            if ((distro == currentSettings.osType &&
+                build.find(currentSettings.osArch) != std::string::npos) ||
+                (label.find(currentSettings.osType) != std::string::npos &&
+                build.find(currentSettings.osArch) != std::string::npos))
             {
                 downloadUrl = releasesArray[i]["url"].asString();
 
